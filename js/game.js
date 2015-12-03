@@ -35,11 +35,25 @@ $(document).ready(function(){
     context = canvas.getContext("2d");
     document.body.appendChild(canvas);
 
+    var img = new Image();
+    img.onload = function() {
+      initSprites(this);
+      run();
+
+    };
+    img.src = "images/sheet.png";
+
   }
 
   main();
 
   function run() {
+    var loop = function(){
+      update();
+      render();
+      window.requestAnimationFrame(loop, canvas);
+    };
+    window. requestAnimationFrame(loop, canvas);
 
   }
 
@@ -48,6 +62,7 @@ $(document).ready(function(){
   }
 
   function render() {
-
+    s_bg.draw(context, 0, height-s_bg.height);
+    s_bg.draw(context, s_bg.width, height-s_bg.height);
   }
 });
