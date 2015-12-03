@@ -38,6 +38,7 @@ $(document).ready(function(){
     var img = new Image();
     img.onload = function() {
       initSprites(this);
+      context.fillStyle = s_bg.color;
       run();
 
     };
@@ -48,21 +49,28 @@ $(document).ready(function(){
   main();
 
   function run() {
-    var loop = function(){
+    fgpos = 0;
+    window.setInterval(function(){
       update();
       render();
-      window.requestAnimationFrame(loop, canvas);
-    };
-    window. requestAnimationFrame(loop, canvas);
+    }, 7);
 
   }
 
   function update() {
-
+    if (fgpos == -14){
+      fgpos = 0;
+    } else {
+      fgpos--;
+    }
   }
 
   function render() {
+    context.fillRect(0, 0, width, height);
     s_bg.draw(context, 0, height-s_bg.height);
     s_bg.draw(context, s_bg.width, height-s_bg.height);
+
+    s_fg.draw(context, fgpos, height-s_fg.height);
+    s_fg.draw(context, fgpos + s_fg.height, height-s_fg.height);
   }
 });
