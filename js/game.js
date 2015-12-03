@@ -14,7 +14,20 @@ $(document).ready(function(){
     Splash : 0, Game: 1, Score: 2
   },
 
-  bird = {},
+  bird = {
+    animation: 0,
+    flap: function(){
+      window.setInterval(function(){
+        this.animation++;
+        if (this.animation === 3){
+          this.animation = 0;
+        }
+      }.bind(this), 200);
+    },
+    draw: function(){
+      s_bird[this.animation].draw(context, 30, 130);
+    }
+  },
 
   pipes = {};
 
@@ -50,6 +63,7 @@ $(document).ready(function(){
 
   function run() {
     fgpos = 0;
+    bird.flap();
     window.setInterval(function(){
       update();
       render();
@@ -72,5 +86,7 @@ $(document).ready(function(){
 
     s_fg.draw(context, fgpos, height-s_fg.height);
     s_fg.draw(context, fgpos + s_fg.height, height-s_fg.height);
+
+    bird.draw();
   }
 });
