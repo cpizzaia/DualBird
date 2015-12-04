@@ -34,6 +34,11 @@ window.FlappyBird = window.FlappyBird || {
       this.bird.jump();
     }.bind(this));
 
+    document.addEventListener("touchstart", function(){
+      this.currentState = this.states.Game;
+      this.bird.jump();
+    }.bind(this));
+
     this.canvas.width = this.width;
     this.canvas.height = this.height;
     this.context = this.canvas.getContext("2d");
