@@ -5,7 +5,7 @@ FlappyBird.bird = {
   y: 130,
   x: 30,
   currentState: 0,
-  ascendRate: 10,
+  ascendRate: 8,
   timeout: null,
   states: {
     Ascending: 1, Descending: 0
@@ -37,7 +37,7 @@ FlappyBird.bird = {
   },
 
   resetAscendRate: function(){
-    this.ascendRate = 10;
+    this.ascendRate = 8;
   },
 
   fly: function(){
