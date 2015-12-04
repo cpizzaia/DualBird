@@ -21,7 +21,7 @@ window.FlappyBird = window.FlappyBird || {
 
     var event = "touchstart";
 
-    if (this.width >= 900) {
+    if (this.width >= 500) {
       this.width = 320;
       this.height = 480;
       this.canvas.style.border = "1px solid black";

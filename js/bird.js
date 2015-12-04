@@ -6,6 +6,7 @@ FlappyBird.bird = {
   x: 30,
   currentState: 0,
   ascendRate: 10,
+  timeout: null,
   states: {
     Ascending: 1, Descending: 0
   },
@@ -57,7 +58,9 @@ FlappyBird.bird = {
     this.rotation = -10;
     this.resetAscendRate();
 
-    window.setTimeout(function(){
+    window.clearTimeout(this.timeout);
+
+    this.timeout = window.setTimeout(function(){
       this.currentState = this.states.Descending;
     }.bind(this), 500);
   },
