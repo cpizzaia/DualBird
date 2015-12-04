@@ -1,92 +1,90 @@
-$(document).ready(function(){
-  window.frames = 0;
-  window.states = {
+window.FlappyBird = window.FlappyBird || {
+
+  frames: 0,
+  currentState: 0,
+  canvas: null,
+  context: null,
+  width: null,
+  height: null,
+  score: 0,
+  best: 0,
+
+  states: {
     Splash : 0, Game: 1, Score: 2
-  };
-  window.currentState = states.Splash;
-  var
-  canvas,
-  context,
-  width,
-  height,
+  },
 
-  score = 0,
-  best = 0,
+  main: function(){
+    this.canvas = document.createElement("canvas");
 
-
-
-
-  pipes = {};
-
-  function main() {
-    canvas = document.createElement("canvas");
-
-    width = window.innerWidth;
-    height = window.innderHeight;
-    currentState = states.Splash;
+    this.width = window.innerWidth;
+    this.height = window.innderHeight;
+    this.currentState = this.states.Splash;
 
     var event = "touchstart";
 
-    if (width >= 500) {
-      width = 320;
-      height = 480;
-      canvas.style.border = "1px solid black";
+    if (this.width >= 500) {
+      this.width = 320;
+      this.height = 480;
+      this.canvas.style.border = "1px solid black";
       event = "mousedown";
     }
 
     document.addEventListener(event, function(){
-      window.frames = 0;
+      this.frames = 0;
       bird.rotation = 0;
-    });
+    }.bind(this));
 
-    canvas.width = width;
-    canvas.height = height;
-    context = canvas.getContext("2d");
-    document.body.appendChild(canvas);
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.context = this.canvas.getContext("2d");
+    document.body.appendChild(this.canvas);
 
     var img = new Image();
+
     img.onload = function() {
-      initSprites(this);
-      context.fillStyle = s_bg.color;
-      run();
+      initSprites(img);
+      this.context.fillStyle = s_bg.color;
+      this.run();
 
-    };
+    }.bind(this);
     img.src = "images/sheet.png";
+  },
 
-  }
-
-  main();
-
-  function run() {
+  run: function() {
     fgpos = 0;
-    bird.flap();
+    this.bird.flap();
     var loop = function() {
-      update();
-      render();
-      window.requestAnimationFrame(loop, canvas);
-    };
-    window.requestAnimationFrame(loop, canvas);
+      this.update();
+      this.render();
+      window.requestAnimationFrame(loop, this.canvas);
+    }.bind(this);
+    window.requestAnimationFrame(loop, this.canvas);
 
-  }
+  },
 
-  function update() {
-    frames++;
+  update: function() {
+    this.frames++;
     fgpos = (fgpos - 2) % 14;
 
-    bird.flap();
+    this.bird.flap();
+
+  },
+
+  render: function() {
+    this.context.fillRect(0, 0, this.width, this.height);
+    s_bg.draw(this.context, 0, this.height-s_bg.height);
+    s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
+
+    this.bird.draw(this.context);
+
+    s_fg.draw(this.context, fgpos, this.height-s_fg.height);
+    s_fg.draw(this.context, fgpos + s_fg.height, this.height-s_fg.height);
+
 
   }
 
-  function render() {
-    context.fillRect(0, 0, width, height);
-    s_bg.draw(context, 0, height-s_bg.height);
-    s_bg.draw(context, s_bg.width, height-s_bg.height);
+};
 
-    bird.draw(context);
-
-    s_fg.draw(context, fgpos, height-s_fg.height);
-    s_fg.draw(context, fgpos + s_fg.height, height-s_fg.height);
-
-
-  }
+$(document).ready(function(){
+  FlappyBird.main();
 });

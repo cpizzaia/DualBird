@@ -1,4 +1,4 @@
-bird = {
+FlappyBird.bird = {
   animationIdx: 0,
   animationArray: [0, 1, 2, 1],
   rotation: 0,
@@ -7,12 +7,12 @@ bird = {
 
   flap: function(){
 
-    this.animationIdx = Math.floor(frames/5) % this.animationArray.length;
+    this.animationIdx = Math.floor(FlappyBird.frames/5) % this.animationArray.length;
 
   },
 
   draw: function(context){
-    if (this.rotation < 1.5 && currentState !== states.Splash) {
+    if (this.rotation < 1.5 && this.currentState !== FlappyBird.states.Splash) {
       this.rotation = frames/10;
     }
 
