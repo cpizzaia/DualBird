@@ -8,6 +8,7 @@ window.FlappyBird = window.FlappyBird || {
   height: null,
   score: 0,
   best: 0,
+  fgpos: 0,
 
   states: {
     Splash : 0, Game: 1, Score: 2
@@ -50,7 +51,7 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   run: function() {
-    fgpos = 0;
+    this.fgpos = 0;
     this.bird.flap();
     var loop = function() {
       this.update();
@@ -63,7 +64,7 @@ window.FlappyBird = window.FlappyBird || {
 
   update: function() {
     this.frames++;
-    fgpos = (fgpos - 2) % 14;
+    this.fgpos = (this.fgpos - 2) % 14;
 
 
     this.bird.update();
@@ -77,8 +78,10 @@ window.FlappyBird = window.FlappyBird || {
 
     this.bird.draw(this.context);
 
-    s_fg.draw(this.context, fgpos, this.height-s_fg.height);
-    s_fg.draw(this.context, fgpos + s_fg.height, this.height-s_fg.height);
+    this.pipes.render(this.context);
+
+    s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
+    s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
 
     if (this.currentState === this.states.Splash){
       s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
@@ -86,7 +89,6 @@ window.FlappyBird = window.FlappyBird || {
 
 
   }
-
 };
 
 $(document).ready(function(){
