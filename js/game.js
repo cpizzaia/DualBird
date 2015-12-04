@@ -1,11 +1,11 @@
 $(document).ready(function(){
+  window.frames = 0;
   var
   canvas,
   context,
   width,
   height,
 
-  frames = 0,
   score = 0,
   best = 0,
 
@@ -14,20 +14,6 @@ $(document).ready(function(){
     Splash : 0, Game: 1, Score: 2
   },
 
-  bird = {
-    animation: 0,
-    flap: function(){
-      window.setInterval(function(){
-        this.animation++;
-        if (this.animation === 3){
-          this.animation = 0;
-        }
-      }.bind(this), 200);
-    },
-    draw: function(){
-      s_bird[this.animation].draw(context, 30, 130);
-    }
-  },
 
   pipes = {};
 
@@ -64,19 +50,21 @@ $(document).ready(function(){
   function run() {
     fgpos = 0;
     bird.flap();
-    window.setInterval(function(){
+    var loop = function() {
       update();
       render();
-    }, 7);
+      window.requestAnimationFrame(loop, canvas);
+    };
+    window.requestAnimationFrame(loop, canvas);
 
   }
 
   function update() {
-    if (fgpos == -14){
-      fgpos = 0;
-    } else {
-      fgpos--;
-    }
+    frames++;
+    fgpos = (fgpos - 2) % 14;
+
+    bird.flap();
+
   }
 
   function render() {
@@ -84,9 +72,11 @@ $(document).ready(function(){
     s_bg.draw(context, 0, height-s_bg.height);
     s_bg.draw(context, s_bg.width, height-s_bg.height);
 
+    bird.draw(context);
+
     s_fg.draw(context, fgpos, height-s_fg.height);
     s_fg.draw(context, fgpos + s_fg.height, height-s_fg.height);
 
-    bird.draw();
+
   }
 });
