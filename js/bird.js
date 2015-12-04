@@ -28,8 +28,8 @@ FlappyBird.bird = {
 
   ascend: function(){
     if (this.ascendRate > -4){
-      this.y -= this.ascendRate;
-      this.ascendRate--;
+      this.y -= Math.ceil(this.ascendRate);
+      this.ascendRate -= 0.5;
     } else {
       this.descend();
     }
