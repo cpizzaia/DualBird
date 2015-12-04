@@ -39,10 +39,12 @@ window.FlappyBird = window.FlappyBird || {
     this.context = this.canvas.getContext("2d");
     document.body.appendChild(this.canvas);
 
+
     var img = new Image();
 
     img.onload = function() {
       initSprites(img);
+      this.pipes.initialize();
       this.context.fillStyle = s_bg.color;
       this.run();
 
@@ -78,14 +80,16 @@ window.FlappyBird = window.FlappyBird || {
 
     this.bird.draw(this.context);
 
-    this.pipes.render(this.context);
+    if (this.currentState === this.states.Splash){
+      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
+    } else {
+      this.pipes.render(this.context);
+    }
 
     s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
 
-    if (this.currentState === this.states.Splash){
-      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
-    }
+
 
 
   }
