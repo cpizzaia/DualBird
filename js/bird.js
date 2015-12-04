@@ -12,10 +12,15 @@ bird = {
   },
 
   draw: function(context){
+    if (this.rotation < 1.5 && currentState !== states.Splash) {
+      this.rotation = frames/10;
+    }
+
+
 
     context.save();
     context.translate(this.x, this.y);
-    context.rotate(frames/10);
+    context.rotate(this.rotation);
 
     var animation = this.animationArray[this.animationIdx];
 

@@ -1,5 +1,9 @@
 $(document).ready(function(){
   window.frames = 0;
+  window.states = {
+    Splash : 0, Game: 1, Score: 2
+  };
+  window.currentState = states.Splash;
   var
   canvas,
   context,
@@ -9,10 +13,7 @@ $(document).ready(function(){
   score = 0,
   best = 0,
 
-  currentState,
-  states = {
-    Splash : 0, Game: 1, Score: 2
-  },
+
 
 
   pipes = {};
@@ -22,12 +23,21 @@ $(document).ready(function(){
 
     width = window.innerWidth;
     height = window.innderHeight;
+    currentState = states.Splash;
+
+    var event = "touchstart";
 
     if (width >= 500) {
       width = 320;
       height = 480;
       canvas.style.border = "1px solid black";
+      event = "mousedown";
     }
+
+    document.addEventListener(event, function(){
+      window.frames = 0;
+      bird.rotation = 0;
+    });
 
     canvas.width = width;
     canvas.height = height;
