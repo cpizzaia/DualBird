@@ -20,16 +20,14 @@ window.FlappyBird = window.FlappyBird || {
     this.width = window.innerWidth;
     this.height = window.innderHeight;
 
-    var event = "touchstart";
 
     if (this.width >= 500) {
       this.width = 320;
       this.height = 480;
       this.canvas.style.border = "1px solid black";
-      event = "mousedown";
     }
 
-    document.addEventListener(event, function(){
+    document.addEventListener("mousedown", function(){
       this.currentState = this.states.Game;
       this.bird.jump();
     }.bind(this));
