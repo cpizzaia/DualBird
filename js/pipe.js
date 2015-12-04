@@ -22,9 +22,9 @@ FlappyBird.pipes = {
   },
 
   initialize: function(){
-    this.distance = FlappyBird.width/2;
+    this.distance = FlappyBird.width/2 + s_pipeNorth.width/2;
     this.position1 = FlappyBird.width;
-    this.position2 = FlappyBird.width + this.distance+s_pipeNorth.width/2;
+    this.position2 = FlappyBird.width + this.distance;
     this.spacing = FlappyBird.height/2 + 20;
 
   },
