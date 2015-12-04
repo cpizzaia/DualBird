@@ -18,7 +18,6 @@ window.FlappyBird = window.FlappyBird || {
 
     this.width = window.innerWidth;
     this.height = window.innderHeight;
-    this.currentState = this.states.Splash;
 
     var event = "touchstart";
 
@@ -30,8 +29,8 @@ window.FlappyBird = window.FlappyBird || {
     }
 
     document.addEventListener(event, function(){
-      this.frames = 0;
-      bird.rotation = 0;
+      this.currentState = this.states.Game;
+      this.bird.jump();
     }.bind(this));
 
     this.canvas.width = this.width;
@@ -66,7 +65,8 @@ window.FlappyBird = window.FlappyBird || {
     this.frames++;
     fgpos = (fgpos - 2) % 14;
 
-    this.bird.flap();
+
+    this.bird.update();
 
   },
 
