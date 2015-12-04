@@ -80,6 +80,10 @@ window.FlappyBird = window.FlappyBird || {
     s_fg.draw(this.context, fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, fgpos + s_fg.height, this.height-s_fg.height);
 
+    if (this.currentState === this.states.Splash){
+      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
+    }
+
 
   }
 
