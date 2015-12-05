@@ -8,7 +8,7 @@ FlappyBird.bird = {
   ascendRate: 8,
   timeout: null,
   states: {
-    Ascending: 1, Descending: 0
+    Dead: 2, Ascending: 1, Descending: 0
   },
 
   flap: function(){
