@@ -28,13 +28,17 @@ window.FlappyBird = window.FlappyBird || {
     }
 
     document.addEventListener("mousedown", function(){
-      this.currentState = this.states.Game;
-      this.bird.jump();
+      if (this.currentState !== this.states.Score){
+        this.currentState = this.states.Game;
+        this.bird.jump();
+      }
     }.bind(this));
 
     document.addEventListener("touchstart", function(){
-      this.currentState = this.states.Game;
-      this.bird.jump();
+      if (this.currentState !== this.states.Score){
+        this.currentState = this.states.Game;
+        this.bird.jump();
+      }
     }.bind(this));
 
     this.canvas.width = this.width;
@@ -69,9 +73,9 @@ window.FlappyBird = window.FlappyBird || {
 
   update: function() {
     this.frames++;
-    this.fgpos = (this.fgpos - 2) % 14;
-
-
+    if (this.currentState !== this.states.Score){
+      this.fgpos = (this.fgpos - 2) % 14;
+    }
     this.bird.update();
 
   },
@@ -80,7 +84,7 @@ window.FlappyBird = window.FlappyBird || {
     for (var i = 0; i < this.pipes.xPositions.length; i++) {
       if (this.bird.x >= this.pipes.xPositions[i] && this.bird.x <= this.pipes.xPositions[i] + s_pipeNorth.width) {
         if (this.bird.y > this.pipes.yBotPositions[i] || this.bird.y < this.pipes.yTopPositions[i] + s_pipeNorth.height){
-
+          this.currentState = this.states.Score;
         }
       }
     }
@@ -91,7 +95,6 @@ window.FlappyBird = window.FlappyBird || {
     s_bg.draw(this.context, 0, this.height-s_bg.height);
     s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
 
-    this.bird.draw(this.context);
 
     if (this.currentState === this.states.Splash){
       s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
@@ -99,6 +102,7 @@ window.FlappyBird = window.FlappyBird || {
     } else {
       this.pipes.render(this.context);
     }
+    this.bird.draw(this.context);
 
     s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);

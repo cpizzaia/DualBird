@@ -37,11 +37,13 @@ FlappyBird.pipes = {
 
   generate: function(){
     this.reset();
-    for (var i = 0; i < this.xPositions.length; i++){
-      this.xPositions[i] -= 2;
+    if (FlappyBird.currentState !== FlappyBird.states.Score) {
+      for (var i = 0; i < this.xPositions.length; i++){
+        this.xPositions[i] -= 2;
 
-      this.yBotPositions[i] = this.spacing + this.offsets[i];
-      this.yTopPositions[i] = -this.spacing + this.offsets[i];
+        this.yBotPositions[i] = this.spacing + this.offsets[i];
+        this.yTopPositions[i] = -this.spacing + this.offsets[i];
+      }
     }
   },
 

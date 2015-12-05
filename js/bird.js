@@ -11,6 +11,11 @@ FlappyBird.bird = {
     Dead: 2, Ascending: 1, Descending: 0
   },
 
+  dead: function(){
+    this.descend();
+    this.rotate();
+  },
+
   flap: function(){
     this.animationIdx = Math.floor(FlappyBird.frames/5) % this.animationArray.length;
   },
@@ -77,6 +82,7 @@ FlappyBird.bird = {
         this.fly();
         break;
       case FlappyBird.states.Score:
+        this.dead();
         break;
     }
   },
