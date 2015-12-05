@@ -77,7 +77,7 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   collisionCheck: function(){
-  
+    
   },
 
   render: function() {
