@@ -77,7 +77,13 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   collisionCheck: function(){
-    
+    for (var i = 0; i < this.pipes.xPositions.length; i++) {
+      if (this.bird.x >= this.pipes.xPositions[i] && this.bird.x <= this.pipes.xPositions[i] + s_pipeNorth.width) {
+        if (this.bird.y > this.pipes.yBotPositions[i] || this.bird.y < this.pipes.yTopPositions[i] + s_pipeNorth.height){
+
+        }
+      }
+    }
   },
 
   render: function() {
@@ -96,6 +102,8 @@ window.FlappyBird = window.FlappyBird || {
 
     s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
+
+    this.collisionCheck();
 
 
 
