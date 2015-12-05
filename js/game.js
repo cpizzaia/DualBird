@@ -84,6 +84,7 @@ window.FlappyBird = window.FlappyBird || {
     this.bird.draw(this.context);
 
     if (this.currentState === this.states.Splash){
+      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
       s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
     } else {
       this.pipes.render(this.context);
