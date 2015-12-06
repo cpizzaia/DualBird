@@ -37,7 +37,7 @@ window.FlappyBird = window.FlappyBird || {
     document.addEventListener("touchstart", function(){
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
-        this.bird.jump();
+        this.bird.changeGlideAngle(e.offsetY);
       }
     }.bind(this));
 
