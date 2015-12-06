@@ -27,10 +27,10 @@ window.FlappyBird = window.FlappyBird || {
       this.canvas.style.border = "1px solid black";
     }
 
-    document.addEventListener("mousedown", function(){
+    document.addEventListener("mousedown", function(e){
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
-        this.bird.jump();
+        this.bird.changeGlideAngle(e.offsetY);
       }
     }.bind(this));
 
@@ -74,7 +74,7 @@ window.FlappyBird = window.FlappyBird || {
   update: function() {
     this.frames++;
     if (this.currentState !== this.states.Score){
-      this.fgpos = (this.fgpos - 2) % 14;
+      this.fgpos = (this.fgpos - 4) % 14;
     }
     this.bird.update();
 

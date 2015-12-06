@@ -31,7 +31,9 @@ FlappyBird.pipes = {
   },
 
   randomOffset: function(){
+    this.spacing--;
     return Math.floor(Math.random() * (-80 - 80) + 80);
+
   },
 
 
@@ -39,7 +41,7 @@ FlappyBird.pipes = {
     this.reset();
     if (FlappyBird.currentState !== FlappyBird.states.Score) {
       for (var i = 0; i < this.xPositions.length; i++){
-        this.xPositions[i] -= 2;
+        this.xPositions[i] -= 4;
 
         this.yBotPositions[i] = this.spacing + this.offsets[i];
         this.yTopPositions[i] = -this.spacing + this.offsets[i];
