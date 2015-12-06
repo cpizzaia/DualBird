@@ -40,6 +40,7 @@ window.FlappyBird = window.FlappyBird || {
     }.bind(this));
 
     $("#flappy-bird").on('touchstart', function(e) {
+      e.preventDefault();
       var offsetTop = $("#flappy-bird").offset().top;
       var offsetY = e.originalEvent.touches[0].pageY - offsetTop;
       if (this.currentState !== this.states.Score){
