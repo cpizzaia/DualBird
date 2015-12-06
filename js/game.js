@@ -9,6 +9,7 @@ window.FlappyBird = window.FlappyBird || {
   score: 0,
   best: 0,
   fgpos: 0,
+  glideBird: null,
 
   states: {
     Splash : 0, Game: 1, Score: 2
@@ -48,6 +49,9 @@ window.FlappyBird = window.FlappyBird || {
         this.bird.changeGlideAngle(offsetY);
       }
     }.bind(this));
+
+    this.glideBird = new Image();
+    this.glideBird.src = "images/GlideBird.png";
 
 
     var img = new Image();
@@ -101,13 +105,6 @@ window.FlappyBird = window.FlappyBird || {
 
 
 
-    if (this.currentState === this.states.Splash){
-      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
-      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
-    } else {
-      this.pipes.render(this.context);
-    }
-
     if (this.currentState === this.states.Score) {
       s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
     }
@@ -115,6 +112,15 @@ window.FlappyBird = window.FlappyBird || {
 
     s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
+
+    if (this.currentState === this.states.Splash){
+      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
+      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
+      this.context.drawImage(this.glideBird, 0, this.height/1.25);
+    } else {
+      this.pipes.render(this.context);
+    }
+
 
     this.collisionCheck();
 
