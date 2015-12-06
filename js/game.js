@@ -18,12 +18,11 @@ window.FlappyBird = window.FlappyBird || {
     this.canvas = document.createElement("canvas");
 
     this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.height = 480;
 
 
-    if (this.width >= 500) {
+    if (this.width >= 320) {
       this.width = 320;
-      this.height = 480;
       this.canvas.style.border = "1px solid black";
     }
 
