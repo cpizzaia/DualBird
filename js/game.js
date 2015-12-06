@@ -95,9 +95,7 @@ window.FlappyBird = window.FlappyBird || {
     s_bg.draw(this.context, 0, this.height-s_bg.height);
     s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
 
-    if (this.currentState === this.states.Score) {
-      s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
-    }
+
 
 
     if (this.currentState === this.states.Splash){
@@ -105,6 +103,10 @@ window.FlappyBird = window.FlappyBird || {
       s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
     } else {
       this.pipes.render(this.context);
+    }
+
+    if (this.currentState === this.states.Score) {
+      s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
     }
     this.bird.draw(this.context);
 
