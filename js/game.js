@@ -26,24 +26,27 @@ window.FlappyBird = window.FlappyBird || {
       this.canvas.style.border = "1px solid black";
     }
 
-    document.addEventListener("mousedown", function(e){
-      if (this.currentState !== this.states.Score){
-        this.currentState = this.states.Game;
-        this.bird.changeGlideAngle(e.offsetY);
-      }
-    }.bind(this));
-
-    document.addEventListener("touchstart", function(e){
-      if (this.currentState !== this.states.Score){
-        this.currentState = this.states.Game;
-        this.bird.changeGlideAngle(e.offsetY);
-      }
-    }.bind(this));
-
     this.canvas.width = this.width;
     this.canvas.height = this.height;
+    this.canvas.id = "flappy-bird";
     this.context = this.canvas.getContext("2d");
     document.body.appendChild(this.canvas);
+
+    $("#flappy-bird").on('mousedown', function(e) {
+      if (this.currentState !== this.states.Score){
+        this.currentState = this.states.Game;
+        this.bird.changeGlideAngle(e.offsetY);
+      }
+    }.bind(this));
+
+    $("#flappy-bird").on('touchstart', function(e) {
+      var offsetTop = $("#flappy-bird").offset().top;
+      var offsetY = e.originalEvent.touches[0].pageY - offsetTop;
+      if (this.currentState !== this.states.Score){
+        this.currentState = this.states.Game;
+        this.bird.changeGlideAngle(offsetY);
+      }
+    }.bind(this));
 
 
     var img = new Image();
