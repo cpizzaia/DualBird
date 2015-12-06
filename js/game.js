@@ -9,7 +9,7 @@ window.FlappyBird = window.FlappyBird || {
   score: 0,
   best: 0,
   fgpos: 0,
-  currentMode: 1,
+  currentMode: 0,
 
   glideBird: null,
 
@@ -40,6 +40,11 @@ window.FlappyBird = window.FlappyBird || {
     document.body.appendChild(this.canvas);
 
     $("#flappy-bird").on('mousedown', function(e) {
+
+      if (this.currentState === this.states.Splash && e.offsetY > this.height-s_fg.height){
+        this.currentMode = this.gameModes.GlideBird;
+      }
+
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
         if (this.currentMode === this.gameModes.GlideBird){
@@ -48,20 +53,27 @@ window.FlappyBird = window.FlappyBird || {
           this.bird.jump();
         }
       }
+
     }.bind(this));
 
     $("#flappy-bird").on('touchstart', function(e) {
       e.preventDefault();
       var offsetTop = $("#flappy-bird").offset().top;
       var offsetY = e.originalEvent.touches[0].pageY - offsetTop;
+
+      if (this.currentState === this.states.Splash && offsetY > this.height-s_fg.height){
+        this.currentMode = this.gameModes.GlideBird;
+      }
+
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
         if (this.currentMode === this.gameModes.GlideBird){
-          this.bird.changeGlideAngle(e.offsetY);
+          this.bird.changeGlideAngle(offsetY);
         } else {
           this.bird.jump();
         }
       }
+
     }.bind(this));
 
     this.glideBird = new Image();
