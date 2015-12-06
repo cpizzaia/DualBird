@@ -95,6 +95,10 @@ window.FlappyBird = window.FlappyBird || {
     s_bg.draw(this.context, 0, this.height-s_bg.height);
     s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
 
+    if (this.currentState === this.states.Score) {
+      s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
+    }
+
 
     if (this.currentState === this.states.Splash){
       s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);

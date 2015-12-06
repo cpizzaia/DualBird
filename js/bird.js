@@ -30,7 +30,7 @@ FlappyBird.bird = {
     if (this.y < FlappyBird.height-s_fg.height-s_bird[0].height/2){
       this.y += 4;
     } else {
-      FlappBird.currentState = FlappBird.states.Score;
+      FlappyBird.currentState = FlappyBird.states.Score;
     }
   },
 
