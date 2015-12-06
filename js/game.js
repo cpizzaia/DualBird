@@ -9,7 +9,13 @@ window.FlappyBird = window.FlappyBird || {
   score: 0,
   best: 0,
   fgpos: 0,
+  currentMode: 1,
+
   glideBird: null,
+
+  gameModes: {
+    FlappyBird: 0, GlideBird:1
+  },
 
   states: {
     Splash : 0, Game: 1, Score: 2
@@ -36,7 +42,11 @@ window.FlappyBird = window.FlappyBird || {
     $("#flappy-bird").on('mousedown', function(e) {
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
-        this.bird.changeGlideAngle(e.offsetY);
+        if (this.currentMode === this.gameModes.GlideBird){
+          this.bird.changeGlideAngle(e.offsetY);
+        } else {
+          this.bird.jump();
+        }
       }
     }.bind(this));
 
@@ -46,7 +56,11 @@ window.FlappyBird = window.FlappyBird || {
       var offsetY = e.originalEvent.touches[0].pageY - offsetTop;
       if (this.currentState !== this.states.Score){
         this.currentState = this.states.Game;
-        this.bird.changeGlideAngle(offsetY);
+        if (this.currentMode === this.gameModes.GlideBird){
+          this.bird.changeGlideAngle(e.offsetY);
+        } else {
+          this.bird.jump();
+        }
       }
     }.bind(this));
 
@@ -75,14 +89,21 @@ window.FlappyBird = window.FlappyBird || {
       window.requestAnimationFrame(loop, this.canvas);
     }.bind(this);
     window.requestAnimationFrame(loop, this.canvas);
-
   },
 
   update: function() {
     this.frames++;
-    if (this.currentState !== this.states.Score){
-      this.fgpos = (this.fgpos - 4) % 14;
+    if (this.currentMode === this.gameModes.GlideBird) {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 4) % 14;
+      }
+    } else {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 2) % 14;
+      }
     }
+
+
     this.bird.update();
 
   },
@@ -102,30 +123,27 @@ window.FlappyBird = window.FlappyBird || {
     s_bg.draw(this.context, 0, this.height-s_bg.height);
     s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
 
+    if (this.currentState === this.states.Splash){
+      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
+      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
+    } else {
+      this.pipes.render(this.context);
+    }
 
-
+    this.bird.draw(this.context);
 
     if (this.currentState === this.states.Score) {
       s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
     }
-    this.bird.draw(this.context);
 
     s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
     s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
 
     if (this.currentState === this.states.Splash){
-      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
-      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
       this.context.drawImage(this.glideBird, 0, this.height/1.25);
-    } else {
-      this.pipes.render(this.context);
     }
 
-
     this.collisionCheck();
-
-
-
 
   }
 };

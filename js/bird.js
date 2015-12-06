@@ -94,7 +94,11 @@ FlappyBird.bird = {
         this.hover();
         break;
       case FlappyBird.states.Game:
-        this.glide();
+        if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird){
+          this.glide();
+        } else {
+          this.fly();
+        }
         this.flap();
         break;
       case FlappyBird.states.Score:
