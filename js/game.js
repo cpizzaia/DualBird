@@ -18,7 +18,7 @@ window.FlappyBird = window.FlappyBird || {
     this.canvas = document.createElement("canvas");
 
     this.width = window.innerWidth;
-    this.height = window.innderHeight;
+    this.height = window.innerHeight;
 
 
     if (this.width >= 500) {
