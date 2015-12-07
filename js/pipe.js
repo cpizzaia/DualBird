@@ -31,7 +31,11 @@ FlappyBird.pipes = {
   },
 
   randomOffset: function(){
+    if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird) {
+      this.spacing--;
+    }
     return Math.floor(Math.random() * (-80 - 80) + 80);
+
   },
 
 
@@ -39,7 +43,13 @@ FlappyBird.pipes = {
     this.reset();
     if (FlappyBird.currentState !== FlappyBird.states.Score) {
       for (var i = 0; i < this.xPositions.length; i++){
-        this.xPositions[i] -= 2;
+
+        if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird) {
+          this.xPositions[i] -= 4;
+        } else {
+          this.xPositions[i] -= 2;
+        }
+
 
         this.yBotPositions[i] = this.spacing + this.offsets[i];
         this.yTopPositions[i] = -this.spacing + this.offsets[i];

@@ -7,6 +7,7 @@ FlappyBird.bird = {
   currentState: 0,
   ascendRate: 8,
   timeout: null,
+  glideAngle: 0,
   states: {
     Dead: 2, Ascending: 1, Descending: 0
   },
@@ -72,6 +73,19 @@ FlappyBird.bird = {
     }.bind(this), 500);
   },
 
+  glide: function() {
+    this.y += this.glideAngle;
+  },
+
+  changeGlideAngle: function(eventYPos){
+    if (this.y < eventYPos){
+      this.glideAngle += 2;
+    } else if (this.y > eventYPos){
+      this.glideAngle -= 2;
+    }
+  },
+
+
 
   update: function() {
     switch (FlappyBird.currentState) {
@@ -80,8 +94,12 @@ FlappyBird.bird = {
         this.hover();
         break;
       case FlappyBird.states.Game:
+        if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird){
+          this.glide();
+        } else {
+          this.fly();
+        }
         this.flap();
-        this.fly();
         break;
       case FlappyBird.states.Score:
         this.dead();
