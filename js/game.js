@@ -119,7 +119,7 @@ window.FlappyBird = window.FlappyBird || {
   updateFgpos: function(){
     if (this.currentMode === this.gameModes.GlideBird) {
       if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 4) % 14;
+        this.fgpos = (this.fgpos - 5) % 14;
       }
     } else {
       if (this.currentState !== this.states.Score){
