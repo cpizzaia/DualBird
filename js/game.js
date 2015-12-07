@@ -27,18 +27,6 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
-  updateFgpos: function(){
-    if (this.currentMode === this.gameModes.GlideBird) {
-      if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 4) % 14;
-      }
-    } else {
-      if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 2) % 14;
-      }
-    }
-  },
-
   glideOrJump: function(offset) {
     if (this.currentState !== this.states.Score){
       this.currentState = this.states.Game;
@@ -106,12 +94,26 @@ window.FlappyBird = window.FlappyBird || {
   run: function() {
     this.fgpos = 0;
     this.bird.flap();
+
     var loop = function() {
       this.update();
       this.render();
       window.requestAnimationFrame(loop, this.canvas);
     }.bind(this);
+
     window.requestAnimationFrame(loop, this.canvas);
+  },
+
+  updateFgpos: function(){
+    if (this.currentMode === this.gameModes.GlideBird) {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 4) % 14;
+      }
+    } else {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 2) % 14;
+      }
+    }
   },
 
   update: function() {
@@ -130,17 +132,22 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
-  render: function() {
-    this.context.fillRect(0, 0, this.width, this.height);
-    s_bg.draw(this.context, 0, this.height-s_bg.height);
-    s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
-
+  renderPipesOrSplash: function() {
     if (this.currentState === this.states.Splash){
       s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
       s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
     } else {
       this.pipes.render(this.context);
     }
+  },
+
+
+  render: function() {
+    this.context.fillRect(0, 0, this.width, this.height);
+    s_bg.draw(this.context, 0, this.height-s_bg.height);
+    s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
+
+    this.renderPipesOrSplash();
 
     this.bird.draw(this.context);
 
