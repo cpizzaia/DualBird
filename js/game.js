@@ -23,6 +23,7 @@ window.FlappyBird = window.FlappyBird || {
   fgpos: 0,
   currentMode: 0,
   arrowSize: 50,
+  restartButton: null,
 
   glideBird: null,
 
@@ -32,6 +33,13 @@ window.FlappyBird = window.FlappyBird || {
 
   states: {
     Splash : 0, Game: 1, Score: 2
+  },
+
+  resetGame: function() {
+    this.currentState = this.states.Splash;
+    this.pipes.initialize();
+    this.bird.initialize();
+    this.currentMode = this.gameModes.FlappyBird;
   },
 
   checkAndSetGlideMode: function(offset) {
@@ -56,6 +64,13 @@ window.FlappyBird = window.FlappyBird || {
       return event.originalEvent.touches[0].pageY - offsetTop;
   },
 
+  checkForGameReset: function(offset) {
+    if (this.currentState === this.states.Score) {
+      if (offset >= this.height/1.5 - this.s_buttons.Ok.height/2 && offset <= this.height/1.5  + this.s_buttons.Ok.height/2)
+        this.resetGame();
+    }
+  },
+
   main: function(){
     this.canvas = document.createElement("canvas");
 
@@ -77,6 +92,7 @@ window.FlappyBird = window.FlappyBird || {
     $("#flappy-bird").on('mousedown', function(e) {
       this.checkAndSetGlideMode(e.offsetY);
       this.glideOrJump(e.offsetY);
+      this.checkForGameReset(e.offsetY);
     }.bind(this));
 
     $("#flappy-bird").on('touchstart', function(e) {
@@ -188,6 +204,7 @@ window.FlappyBird = window.FlappyBird || {
 
     if (this.currentState === this.states.Score) {
       this.s_text.GameOver.draw(this.context, this.width/2-this.s_text.GameOver.width/2, this.height/2-this.s_text.GameOver.height/2);
+      this.s_buttons.Ok.draw(this.context, this.width/2-this.s_buttons.Ok.width/2, this.height/1.5-this.s_buttons.Ok.height/2);
     }
 
     this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
@@ -198,6 +215,9 @@ window.FlappyBird = window.FlappyBird || {
     }
     this.drawGlideBirdCtrls();
     this.collisionCheck();
+
+
+
   }
 };
 

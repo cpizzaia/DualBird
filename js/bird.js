@@ -14,6 +14,12 @@ FlappyBird.bird = {
     Dead: 2, Ascending: 1, Descending: 0
   },
 
+  initialize: function() {
+    this.y = 130;
+    this.x = 30;
+    this.rotation = 0;
+  },
+
   dead: function(){
     this.descend();
     this.rotate();
