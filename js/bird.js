@@ -85,6 +85,14 @@ FlappyBird.bird = {
     }
   },
 
+  glideOrFly: function() {
+    if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird){
+      this.glide();
+    } else {
+      this.fly();
+    }
+  },
+
 
 
   update: function() {
@@ -94,11 +102,7 @@ FlappyBird.bird = {
         this.hover();
         break;
       case FlappyBird.states.Game:
-        if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird){
-          this.glide();
-        } else {
-          this.fly();
-        }
+        this.glideOrFly();
         this.flap();
         break;
       case FlappyBird.states.Score:
