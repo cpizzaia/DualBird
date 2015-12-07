@@ -8,6 +8,8 @@ FlappyBird.bird = {
   ascendRate: 8,
   timeout: null,
   glideAngle: 0,
+  glideDown: 4,
+  glideUp: -4,
   states: {
     Dead: 2, Ascending: 1, Descending: 0
   },
@@ -74,15 +76,27 @@ FlappyBird.bird = {
   },
 
   glide: function() {
-    this.y += this.glideAngle;
+    if (this.currentState == this.states.Ascending) {
+      this.y -= this.glideAngle;
+      if (this.glideAngle > 0) {
+        this.glideAngle-=0.2;
+      }
+
+    } else {
+      this.y += this.glideAngle;
+      if (this.glideAngle > 0) {
+        this.glideAngle-=0.2;
+      }
+    }
   },
 
   changeGlideAngle: function(eventYPos){
     if (this.y < eventYPos){
-      this.glideAngle += 2;
+      this.currentState = this.states.Descending;
     } else if (this.y > eventYPos){
-      this.glideAngle -= 2;
+      this.currentState = this.states.Ascending;
     }
+    this.glideAngle = 4;
   },
 
   glideOrFly: function() {
