@@ -22,6 +22,7 @@ window.FlappyBird = window.FlappyBird || {
   best: 0,
   fgpos: 0,
   currentMode: 0,
+  arrowSize: 50,
 
   glideBird: null,
 
@@ -90,6 +91,9 @@ window.FlappyBird = window.FlappyBird || {
     this.glideBird = new Image();
     this.glideBird.src = "images/GlideBird.png";
 
+    this.arrow = new Image();
+    this.arrow.src = "images/arrow.png";
+
 
     var img = new Image();
 
@@ -153,6 +157,25 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
+  drawArrowAndCenter: function(x, y, size) {
+    var height = this.arrow.height * (size/this.arrow.width);
+    this.context.drawImage(this.arrow, x-size/2, y-height, size, height);
+  },
+
+  drawUpArrow: function(x, y, size) {
+    this.context.save();
+    this.context.rotate(3.14);
+    this.drawArrowAndCenter(-x, -y, size);
+    this.context.restore();
+  },
+
+  drawGlideBirdCtrls: function(){
+    if (this.currentMode === this.gameModes.GlideBird){
+      this.drawArrowAndCenter(this.width/2, this.height/1.05, 50);
+      this.drawUpArrow(this.width/2, this.height/32, 50);
+    }
+  },
+
   render: function() {
     this.context.fillRect(0, 0, this.width, this.height);
 
@@ -173,7 +196,7 @@ window.FlappyBird = window.FlappyBird || {
     if (this.currentState === this.states.Splash){
       this.context.drawImage(this.glideBird, 0, this.height/1.25);
     }
-
+    this.drawGlideBirdCtrls();
     this.collisionCheck();
   }
 };
