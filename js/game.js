@@ -19,7 +19,6 @@ window.FlappyBird = window.FlappyBird || {
   width: null,
   height: null,
   score: 0,
-  best: 0,
   fgpos: 0,
   currentMode: 0,
   arrowSize: 50,
@@ -28,7 +27,7 @@ window.FlappyBird = window.FlappyBird || {
   glideBird: null,
 
   gameModes: {
-    FlappyBird: 0, GlideBird:1
+    FlappyBird: 0, GlideBird: 1
   },
 
   states: {
@@ -40,6 +39,7 @@ window.FlappyBird = window.FlappyBird || {
     this.pipes.initialize();
     this.bird.initialize();
     this.currentMode = this.gameModes.FlappyBird;
+    this.score = 0;
   },
 
   checkAndSetGlideMode: function(offset) {
@@ -151,8 +151,15 @@ window.FlappyBird = window.FlappyBird || {
 
   update: function() {
     this.frames++;
+    this.updateScore();
     this.updateFgpos();
     this.bird.update();
+  },
+
+  updateScore :function() {
+    if (this.currentState === this.states.Game) {
+      this.score++;
+    }
   },
 
   collisionCheck: function(){
@@ -206,6 +213,7 @@ window.FlappyBird = window.FlappyBird || {
     if (this.currentState === this.states.Score) {
       this.s_text.GameOver.draw(this.context, this.width/2-this.s_text.GameOver.width/2, this.height/2-this.s_text.GameOver.height/2);
       this.s_buttons.Ok.draw(this.context, this.width/2-this.s_buttons.Ok.width/2, this.height/1.5-this.s_buttons.Ok.height/2);
+      this.s_numberB.draw(this.context, this.width/2.35, this.height/1.7-this.s_numberB.height/2, this.score);
     }
 
     this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
@@ -216,6 +224,8 @@ window.FlappyBird = window.FlappyBird || {
     }
     this.drawGlideBirdCtrls();
     this.collisionCheck();
+
+
 
 
 
