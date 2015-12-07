@@ -141,10 +141,9 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
-
   render: function() {
     this.context.fillRect(0, 0, this.width, this.height);
-    
+
     s_bg.draw(this.context, 0, this.height-s_bg.height);
     s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
 

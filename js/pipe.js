@@ -38,27 +38,24 @@ FlappyBird.pipes = {
 
   },
 
+  generateNewXPositions: function(i){
+    if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird) {
+      this.xPositions[i] -= 4;
+    } else {
+      this.xPositions[i] -= 2;
+    }
+  },
 
   generate: function(){
     this.reset();
     if (FlappyBird.currentState !== FlappyBird.states.Score) {
       for (var i = 0; i < this.xPositions.length; i++){
-
-        if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird) {
-          this.xPositions[i] -= 4;
-        } else {
-          this.xPositions[i] -= 2;
-        }
-
-
+        this.generateNewXPositions(i);
         this.yBotPositions[i] = this.spacing + this.offsets[i];
         this.yTopPositions[i] = -this.spacing + this.offsets[i];
       }
     }
   },
-
-
-
 
   render: function(context){
     this.generate();

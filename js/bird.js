@@ -93,8 +93,6 @@ FlappyBird.bird = {
     }
   },
 
-
-
   update: function() {
     switch (FlappyBird.currentState) {
       case FlappyBird.states.Splash:
@@ -110,7 +108,6 @@ FlappyBird.bird = {
         break;
     }
   },
-
 
   draw: function(context){
     context.save();
