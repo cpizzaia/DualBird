@@ -38,6 +38,11 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
+  getTouchOffset: function() {
+      var offsetTop = $("#flappy-bird").offset().top;
+      return e.originalEvent.touches[0].pageY - offsetTop;
+  },
+
   main: function(){
     this.canvas = document.createElement("canvas");
 
@@ -63,12 +68,11 @@ window.FlappyBird = window.FlappyBird || {
 
     $("#flappy-bird").on('touchstart', function(e) {
       e.preventDefault();
-      var offsetTop = $("#flappy-bird").offset().top;
-      var offsetY = e.originalEvent.touches[0].pageY - offsetTop;
+
+      var offsetY = this.getTouchOffset();
 
       this.checkAndSetGlideMode(offsetY);
       this.glideOrJump(offsetY);
-      
     }.bind(this));
 
     this.glideBird = new Image();
