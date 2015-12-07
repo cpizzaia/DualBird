@@ -12,7 +12,7 @@ FlappyBird.pipes = {
 
   reset: function(){
     for (var i = 0; i < this.xPositions.length; i++) {
-      if (this.xPositions[i] < -s_pipeNorth.width) {
+      if (this.xPositions[i] < -FlappyBird.s_pipeNorth.width) {
         this.xPositions[i] = FlappyBird.width;
         this.offsets[i] = this.randomOffset();
       }
@@ -20,7 +20,7 @@ FlappyBird.pipes = {
   },
 
   initialize: function(){
-    this.distance = FlappyBird.width/2 + s_pipeNorth.width/2;
+    this.distance = FlappyBird.width/2 + FlappyBird.s_pipeNorth.width/2;
     this.spacing = FlappyBird.height/2 + 20;
 
     this.xPositions[0] = FlappyBird.width;
@@ -60,8 +60,8 @@ FlappyBird.pipes = {
   render: function(context){
     this.generate();
     for (var i = 0; i < this.xPositions.length; i++){
-      s_pipeNorth.draw(context, this.xPositions[i], this.yBotPositions[i]);
-      s_pipeSouth.draw(context, this.xPositions[i], this.yTopPositions[i]);
+      FlappyBird.s_pipeNorth.draw(context, this.xPositions[i], this.yBotPositions[i]);
+      FlappyBird.s_pipeSouth.draw(context, this.xPositions[i], this.yTopPositions[i]);
     }
   }
 };

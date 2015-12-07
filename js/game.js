@@ -1,5 +1,17 @@
 window.FlappyBird = window.FlappyBird || {
 
+  s_bird: null,
+  s_bg: null,
+  s_fg: null,
+  s_pipeNorth: null,
+  s_pipeSouth: null,
+  s_text: null,
+  s_score: null,
+  s_splash: null,
+  s_buttons: null,
+  s_numberS: null,
+  s_numberB: null,
+
   frames: 0,
   currentState: 0,
   canvas: null,
@@ -22,7 +34,7 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   checkAndSetGlideMode: function(offset) {
-    if (this.currentState === this.states.Splash && offset > this.height-s_fg.height){
+    if (this.currentState === this.states.Splash && offset > this.height-this.s_fg.height){
       this.currentMode = this.gameModes.GlideBird;
     }
   },
@@ -82,9 +94,9 @@ window.FlappyBird = window.FlappyBird || {
     var img = new Image();
 
     img.onload = function() {
-      initSprites(img);
+      this.initSprites(img);
       this.pipes.initialize();
-      this.context.fillStyle = s_bg.color;
+      this.context.fillStyle = this.s_bg.color;
       this.run();
 
     }.bind(this);
@@ -124,8 +136,8 @@ window.FlappyBird = window.FlappyBird || {
 
   collisionCheck: function(){
     for (var i = 0; i < this.pipes.xPositions.length; i++) {
-      if (this.bird.x >= this.pipes.xPositions[i] && this.bird.x <= this.pipes.xPositions[i] + s_pipeNorth.width) {
-        if (this.bird.y > this.pipes.yBotPositions[i] || this.bird.y < this.pipes.yTopPositions[i] + s_pipeNorth.height){
+      if (this.bird.x >= this.pipes.xPositions[i] && this.bird.x <= this.pipes.xPositions[i] + this.s_pipeNorth.width) {
+        if (this.bird.y > this.pipes.yBotPositions[i] || this.bird.y < this.pipes.yTopPositions[i] + this.s_pipeNorth.height){
           this.currentState = this.states.Score;
         }
       }
@@ -134,8 +146,8 @@ window.FlappyBird = window.FlappyBird || {
 
   renderPipesOrSplash: function() {
     if (this.currentState === this.states.Splash){
-      s_text.FlappyBird.draw(this.context, this.width/2-s_text.FlappyBird.width/2, this.height/4-s_text.FlappyBird.height/2);
-      s_splash.draw(this.context, this.width/2-s_splash.width/2, this.height/2-s_splash.height/2);
+      this.s_text.FlappyBird.draw(this.context, this.width/2-this.s_text.FlappyBird.width/2, this.height/4-this.s_text.FlappyBird.height/2);
+      this.s_splash.draw(this.context, this.width/2-this.s_splash.width/2, this.height/2-this.s_splash.height/2);
     } else {
       this.pipes.render(this.context);
     }
@@ -144,19 +156,19 @@ window.FlappyBird = window.FlappyBird || {
   render: function() {
     this.context.fillRect(0, 0, this.width, this.height);
 
-    s_bg.draw(this.context, 0, this.height-s_bg.height);
-    s_bg.draw(this.context, s_bg.width, this.height-s_bg.height);
+    this.s_bg.draw(this.context, 0, this.height-this.s_bg.height);
+    this.s_bg.draw(this.context, this.s_bg.width, this.height-this.s_bg.height);
 
     this.renderPipesOrSplash();
 
     this.bird.draw(this.context);
 
     if (this.currentState === this.states.Score) {
-      s_text.GameOver.draw(this.context, this.width/2-s_text.GameOver.width/2, this.height/2-s_text.GameOver.height/2);
+      this.s_text.GameOver.draw(this.context, this.width/2-this.s_text.GameOver.width/2, this.height/2-this.s_text.GameOver.height/2);
     }
 
-    s_fg.draw(this.context, this.fgpos, this.height-s_fg.height);
-    s_fg.draw(this.context, this.fgpos + s_fg.height, this.height-s_fg.height);
+    this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
+    this.s_fg.draw(this.context, this.fgpos + this.s_fg.height, this.height-this.s_fg.height);
 
     if (this.currentState === this.states.Splash){
       this.context.drawImage(this.glideBird, 0, this.height/1.25);

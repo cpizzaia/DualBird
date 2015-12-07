@@ -28,7 +28,7 @@ FlappyBird.bird = {
   },
 
   descend: function(){
-    if (this.y < FlappyBird.height-s_fg.height-s_bird[0].height/2){
+    if (this.y < FlappyBird.height-FlappyBird.s_fg.height-FlappyBird.s_bird[0].height/2){
       this.y += 4;
     } else {
       FlappyBird.currentState = FlappyBird.states.Score;
@@ -116,10 +116,10 @@ FlappyBird.bird = {
 
     var animation = this.animationArray[this.animationIdx];
 
-    s_bird[animation].draw(
+    FlappyBird.s_bird[animation].draw(
       context,
-      -s_bird[animation].width/2,
-      -s_bird[animation].height/2
+      -FlappyBird.s_bird[animation].width/2,
+      -FlappyBird.s_bird[animation].height/2
     );
     context.restore();
   }
