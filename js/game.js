@@ -27,6 +27,18 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
+  updateFgpos: function(){
+    if (this.currentMode === this.gameModes.GlideBird) {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 4) % 14;
+      }
+    } else {
+      if (this.currentState !== this.states.Score){
+        this.fgpos = (this.fgpos - 2) % 14;
+      }
+    }
+  },
+
   glideOrJump: function(offset) {
     if (this.currentState !== this.states.Score){
       this.currentState = this.states.Game;
@@ -104,19 +116,8 @@ window.FlappyBird = window.FlappyBird || {
 
   update: function() {
     this.frames++;
-    if (this.currentMode === this.gameModes.GlideBird) {
-      if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 4) % 14;
-      }
-    } else {
-      if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 2) % 14;
-      }
-    }
-
-
+    this.updateFgpos();
     this.bird.update();
-
   },
 
   collisionCheck: function(){
