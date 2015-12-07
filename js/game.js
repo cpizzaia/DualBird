@@ -102,6 +102,7 @@ window.FlappyBird = window.FlappyBird || {
 
       this.checkAndSetGlideMode(offsetY);
       this.glideOrJump(offsetY);
+      this.checkForGameReset(offsetY);
     }.bind(this));
 
     this.glideBird = new Image();
