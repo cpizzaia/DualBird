@@ -165,7 +165,7 @@ window.FlappyBird = window.FlappyBird || {
   collisionCheck: function(){
     for (var i = 0; i < this.pipes.xPositions.length; i++) {
       if (this.bird.x >= this.pipes.xPositions[i] && this.bird.x <= this.pipes.xPositions[i] + this.s_pipeNorth.width) {
-        if (this.bird.y > this.pipes.yBotPositions[i] || this.bird.y < this.pipes.yTopPositions[i] + this.s_pipeNorth.height){
+        if (this.bird.y+this.s_bird[0].height/2 > this.pipes.yBotPositions[i] || this.bird.y-this.s_bird[0].height/2 < this.pipes.yTopPositions[i] + this.s_pipeNorth.height){
           this.currentState = this.states.Score;
         }
       }
