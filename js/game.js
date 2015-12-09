@@ -194,7 +194,7 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   drawGlideBirdCtrls: function(){
-    if (this.currentMode === this.gameModes.GlideBird){
+    if (this.currentMode === this.gameModes.GlideBird && this.currentState != this.states.Score){
       this.drawArrowAndCenter(this.width/2, this.height/1.05, 50);
       this.drawUpArrow(this.width/2, this.height/32, 50);
     }
