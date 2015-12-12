@@ -2,6 +2,7 @@ describe("Bird", function(){
 
   beforeEach(function() {
     this.loadImages();
+    FlappyBird.bird.initialize();
   });
 
   describe("#initialize", function(){
@@ -112,6 +113,20 @@ describe("Bird", function(){
       }
       FlappyBird.bird.rotate();
       expect(lastAngle).toBeLessThan(FlappyBird.bird.rotation);
+    });
+  });
+
+  describe("#glideUp", function() {
+    it("should move the bird up until the glide angle is zero", function() {
+      var lastPosition = FlappyBird.bird.y;
+      FlappyBird.bird.changeGlideAngle(lastPosition - 10);
+      while (FlappyBird.bird.glideAngle > 0) {
+        FlappyBird.bird.glideUp();
+        expect(lastPosition).toBeGreaterThan(FlappyBird.bird.y);
+      }
+
+      FlappyBird.bird.glideUp();
+      expect(lastPosition).toBeGreaterThan(FlappyBird.bird.y);
     });
   });
 
