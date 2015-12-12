@@ -24,7 +24,7 @@ describe("Bird", function(){
 
   describe("#flap", function() {
 
-    it("should change the animation of the bird every 5 frames", function() {
+    it("should change the animation of the bird every FLAP_ANIMATION_RATE frames", function() {
       expect(FlappyBird.bird.animationIdx).toEqual(0);
       for (var i = 0; i < 5; i++){
         FlappyBird.frames++;

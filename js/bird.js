@@ -1,5 +1,10 @@
 FlappyBird.bird = {
   MAX_ROTATION: 1.5,
+  ASCEND_RATE: 8,
+  FLAP_ANIMATION_RATE: 5,
+  MAX_GLIDE_ANGLE: 4,
+  GLIDE_ANGLE_REDUCER: 0.2,
+
   animationIdx: 0,
   animationArray: [0, 1, 2, 1],
   rotation: 0,
@@ -9,8 +14,6 @@ FlappyBird.bird = {
   ascendRate: 8,
   timeout: null,
   glideAngle: 0,
-  glideDown: 4,
-  glideUp: -4,
   states: {
     Dead: 2, Ascending: 1, Descending: 0
   },
@@ -27,7 +30,7 @@ FlappyBird.bird = {
   },
 
   flap: function(){
-    this.animationIdx = Math.floor(FlappyBird.frames/5) % this.animationArray.length;
+    this.animationIdx = Math.floor(FlappyBird.frames/this.FLAP_ANIMATION_RATE) % this.animationArray.length;
   },
 
   rotate: function(){
@@ -54,7 +57,7 @@ FlappyBird.bird = {
   },
 
   resetAscendRate: function(){
-    this.ascendRate = 8;
+    this.ascendRate = this.ASCEND_RATE;
   },
 
   fly: function(){
@@ -84,16 +87,23 @@ FlappyBird.bird = {
 
   glide: function() {
     if (this.currentState == this.states.Ascending) {
-      this.y -= this.glideAngle;
-      if (this.glideAngle > 0) {
-        this.glideAngle-=0.2;
-      }
-
+      this.glideUp();
     } else {
-      this.y += this.glideAngle;
-      if (this.glideAngle > 0) {
-        this.glideAngle-=0.2;
-      }
+      this.glideDown();
+    }
+  },
+
+  glideUp: function() {
+    this.y -= this.glideAngle;
+    if (this.glideAngle > 0) {
+      this.glideAngle-= this.GLIDE_ANGLE_REDUCER;
+    }
+  },
+
+  glideDown: function() {
+    this.y += this.glideAngle;
+    if (this.glideAngle > 0) {
+      this.glideAngle-= this.GLIDE_ANGLE_REDUCER;
     }
   },
 
@@ -103,7 +113,7 @@ FlappyBird.bird = {
     } else if (this.y > eventYPos){
       this.currentState = this.states.Ascending;
     }
-    this.glideAngle = 4;
+    this.glideAngle = this.MAX_GLIDE_ANGLE;
   },
 
   glideOrFly: function() {
