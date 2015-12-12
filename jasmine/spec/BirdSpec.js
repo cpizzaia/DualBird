@@ -99,7 +99,19 @@ describe("Bird", function(){
         }
         lastPosition = FlappyBird.bird.y;
       }
+    });
+  });
 
+  describe("#rotate", function() {
+    it("should increase the birds rotation until max rotation is reached", function() {
+      var lastAngle = FlappyBird.bird.rotation;
+      while (FlappyBird.bird.rotation < FlappyBird.bird.MAX_ROTATION) {
+        FlappyBird.bird.rotate();
+        expect(lastAngle).toBeLessThan(FlappyBird.bird.rotation);
+        lastAngle = FlappyBird.bird.rotation;
+      }
+      FlappyBird.bird.rotate();
+      expect(lastAngle).toBeLessThan(FlappyBird.bird.rotation);
     });
   });
 

@@ -1,4 +1,5 @@
 FlappyBird.bird = {
+  MAX_ROTATION: 1.5,
   animationIdx: 0,
   animationArray: [0, 1, 2, 1],
   rotation: 0,
@@ -30,7 +31,7 @@ FlappyBird.bird = {
   },
 
   rotate: function(){
-    if (this.rotation/10 < 1.5){
+    if (this.rotation/10 < this.MAX_ROTATION){
       this.rotation++;
     }
   },
