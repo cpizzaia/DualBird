@@ -123,10 +123,26 @@ describe("Bird", function(){
       while (FlappyBird.bird.glideAngle > 0) {
         FlappyBird.bird.glideUp();
         expect(lastPosition).toBeGreaterThan(FlappyBird.bird.y);
+        lastPosition = FlappyBird.bird.y;
       }
 
       FlappyBird.bird.glideUp();
-      expect(lastPosition).toBeGreaterThan(FlappyBird.bird.y);
+      expect(lastPosition).toEqual(FlappyBird.bird.y);
+    });
+  });
+
+  describe("#glideDown", function() {
+    it("should move the bird down until the glide angle is zero", function() {
+      var lastPosition = FlappyBird.bird.y;
+      FlappyBird.bird.changeGlideAngle(lastPosition + 10);
+      while (FlappyBird.bird.glideAngle > 0) {
+        FlappyBird.bird.glideDown();
+        expect(lastPosition).toBeLessThan(FlappyBird.bird.y);
+        lastPosition = FlappyBird.bird.y;
+      }
+
+      FlappyBird.bird.glideUp();
+      expect(lastPosition).toEqual(FlappyBird.bird.y);
     });
   });
 
