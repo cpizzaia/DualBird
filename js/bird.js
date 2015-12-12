@@ -22,6 +22,7 @@ FlappyBird.bird = {
     this.y = 130;
     this.x = 30;
     this.rotation = 0;
+    this.glideAngle = 0;
   },
 
   dead: function(){

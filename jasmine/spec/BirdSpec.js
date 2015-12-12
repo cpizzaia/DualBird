@@ -116,6 +116,24 @@ describe("Bird", function(){
     });
   });
 
+  describe("#changeGlideAngle", function() {
+    it("should set the state to ascending if the event is above the bird and set glide angle to MAX_GLIDE_ANGLE", function() {
+      expect(FlappyBird.bird.glideAngle).toEqual(0);
+      FlappyBird.bird.currentState = FlappyBird.bird.states.Descending;
+      FlappyBird.bird.changeGlideAngle(FlappyBird.bird.y - 10);
+      expect(FlappyBird.bird.currentState).toEqual(FlappyBird.bird.states.Ascending);
+      expect(FlappyBird.bird.glideAngle).toEqual(FlappyBird.bird.MAX_GLIDE_ANGLE);
+    });
+
+    it("should set the state to descending if the event is below the bird and set glide angle to MAX_GLIDE_ANGLE", function() {
+      expect(FlappyBird.bird.glideAngle).toEqual(0);
+      FlappyBird.bird.currentState = FlappyBird.bird.states.Ascending;
+      FlappyBird.bird.changeGlideAngle(FlappyBird.bird.y + 10);
+      expect(FlappyBird.bird.currentState).toEqual(FlappyBird.bird.states.Descending);
+      expect(FlappyBird.bird.glideAngle).toEqual(FlappyBird.bird.MAX_GLIDE_ANGLE);
+    });
+  });
+
   describe("#glideUp", function() {
     it("should move the bird up until the glide angle is zero", function() {
       var lastPosition = FlappyBird.bird.y;
