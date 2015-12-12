@@ -61,10 +61,11 @@ describe("Bird", function(){
       initialXPos = FlappyBird.bird.x,
       lastPosition = FlappyBird.bird.y,
       difference,
-      lastDifference;
+      lastDifference,
+      i = 0;
 
 
-      for (var i = 0; i < 16; i++){
+      while (FlappyBird.bird.ascendRate < 0) {
         FlappyBird.bird.ascend();
         difference = lastPosition - FlappyBird.bird.y;
 
@@ -76,16 +77,7 @@ describe("Bird", function(){
         expect(FlappyBird.bird.y).toBeLessThan(lastPosition);
         expect(FlappyBird.bird.x).toEqual(initialXPos);
         lastPosition = FlappyBird.bird.y;
-      }
-
-      FlappyBird.bird.ascend(); // flap one more time to get past zero condition
-      lastPosition = lastPosition = FlappyBird.bird.y;
-
-      for (i = 0; i < 10; i++){
-        FlappyBird.bird.ascend();
-        expect(FlappyBird.bird.y).toBeGreaterThan(lastPosition);
-        lastPosition = FlappyBird.bird.y;
-        expect(FlappyBird.bird.x).toEqual(initialXPos);
+        i = 1;
       }
     });
   });
