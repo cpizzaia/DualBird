@@ -64,8 +64,7 @@ describe("Bird", function(){
       lastDifference,
       i = 0;
 
-
-      while (FlappyBird.bird.ascendRate < 0) {
+      while (FlappyBird.bird.ascendRate > 0) {
         FlappyBird.bird.ascend();
         difference = lastPosition - FlappyBird.bird.y;
 
