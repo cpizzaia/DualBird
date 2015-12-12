@@ -16,8 +16,8 @@ window.FlappyBird = window.FlappyBird || {
   currentState: 0,
   canvas: null,
   context: null,
-  width: null,
-  height: null,
+  width: 320,
+  height: 480,
   score: 0,
   fgpos: 0,
   currentMode: 0,
@@ -105,12 +105,17 @@ window.FlappyBird = window.FlappyBird || {
       this.checkForGameReset(offsetY);
     }.bind(this));
 
+    this.initImagesAndRun();
+
+  },
+
+  initImagesAndRun: function() {
+
     this.glideBird = new Image();
     this.glideBird.src = "images/GlideBird.png";
 
     this.arrow = new Image();
     this.arrow.src = "images/arrow.png";
-
 
     var img = new Image();
 
@@ -231,7 +236,3 @@ window.FlappyBird = window.FlappyBird || {
 
   }
 };
-
-$(document).ready(function(){
-  FlappyBird.main();
-});
