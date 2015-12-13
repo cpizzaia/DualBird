@@ -28,6 +28,11 @@ DualBird.pipes = {
 
     this.offsets[0] = this.randomOffset();
     this.offsets[1] = this.randomOffset();
+
+    for (var i = 0; i < this.xPositions.length; i++) {
+      this.generateNewYPositions(i);
+    }
+
   },
 
   randomOffset: function(){
