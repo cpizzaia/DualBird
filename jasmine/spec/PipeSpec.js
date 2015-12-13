@@ -74,6 +74,16 @@ describe("Pipe", function(){
     });
   });
 
+  describe("#reset", function() {
+    it("should reset x position of the pipe when it goes off screen", function() {
+      DualBird.pipes.xPositions[0] = -DualBird.s_pipeNorth.width-1;
+      DualBird.pipes.xPositions[1] = DualBird.s_pipeNorth.width;
+      DualBird.pipes.reset();
+      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.width);
+      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.s_pipeNorth.width);
+    });
+  });
+
 
 
 
