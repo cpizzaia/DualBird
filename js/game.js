@@ -43,7 +43,7 @@ window.FlappyBird = window.FlappyBird || {
   },
 
   checkAndSetGlideMode: function(offset) {
-    if (this.currentState === this.states.Splash && offset > this.height-this.s_fg.height){
+    if (this.currentState === this.states.Splash && offset > this.height/2){
       this.currentMode = this.gameModes.GlideBird;
     }
   },
@@ -112,7 +112,7 @@ window.FlappyBird = window.FlappyBird || {
   initImagesAndRun: function() {
 
     this.glideBird = new Image();
-    this.glideBird.src = "images/GlideBird.png";
+    this.glideBird.src = "images/GlideBird_superblue.png";
 
     this.arrow = new Image();
     this.arrow.src = "images/arrow.png";
@@ -205,6 +205,13 @@ window.FlappyBird = window.FlappyBird || {
     }
   },
 
+  drawGlideBirdLogo: function(x, y, size){
+    if (this.currentState === this.states.Splash){
+      var height = this.glideBird.height * (size/this.glideBird.width);
+      this.context.drawImage(this.glideBird, x-size/2, y-height, size, height);
+    }
+  },
+
   render: function() {
     this.context.fillRect(0, 0, this.width, this.height);
 
@@ -224,9 +231,8 @@ window.FlappyBird = window.FlappyBird || {
     this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
     this.s_fg.draw(this.context, this.fgpos + this.s_fg.height, this.height-this.s_fg.height);
 
-    if (this.currentState === this.states.Splash){
-      this.context.drawImage(this.glideBird, 0, this.height/1.25);
-    }
+    this.drawGlideBirdLogo(this.width/2, this.height/1.25, 170);
+
     this.drawGlideBirdCtrls();
     this.collisionCheck();
 
