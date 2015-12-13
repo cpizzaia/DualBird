@@ -1,4 +1,4 @@
-FlappyBird.Sprite = function(img, x, y, width, height) {
+DualBird.Sprite = function(img, x, y, width, height) {
 	this.img = img;
 	this.x = x*2;
 	this.y = y*2;
@@ -6,12 +6,12 @@ FlappyBird.Sprite = function(img, x, y, width, height) {
 	this.height = height*2;
 };
 
-FlappyBird.Sprite.prototype.draw = function(ctx, x, y) {
+DualBird.Sprite.prototype.draw = function(ctx, x, y) {
 	ctx.drawImage(this.img, this.x, this.y, this.width, this.height,
 		x, y, this.width, this.height);
 };
 
-FlappyBird.initSprites = function(img) {
+DualBird.initSprites = function(img) {
 
 		this.s_bird = [
 			new this.Sprite(img, 156, 115, 17, 12),

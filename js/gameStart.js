@@ -1,3 +1,3 @@
 $(document).ready(function(){
-  FlappyBird.main();
+  DualBird.main();
 });

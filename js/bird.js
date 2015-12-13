@@ -1,4 +1,4 @@
-FlappyBird.bird = {
+DualBird.bird = {
   MAX_ROTATION: 1.5,
   ASCEND_RATE: 8,
   FLAP_ANIMATION_RATE: 5,
@@ -31,7 +31,7 @@ FlappyBird.bird = {
   },
 
   flap: function(){
-    this.animationIdx = Math.floor(FlappyBird.frames/this.FLAP_ANIMATION_RATE) % this.animationArray.length;
+    this.animationIdx = Math.floor(DualBird.frames/this.FLAP_ANIMATION_RATE) % this.animationArray.length;
   },
 
   rotate: function(){
@@ -41,10 +41,10 @@ FlappyBird.bird = {
   },
 
   descend: function(){
-    if (this.y < FlappyBird.height-FlappyBird.s_fg.height-FlappyBird.s_bird[0].height/2){
+    if (this.y < DualBird.height-DualBird.s_fg.height-DualBird.s_bird[0].height/2){
       this.y += 4;
     } else {
-      FlappyBird.currentState = FlappyBird.states.Score;
+      DualBird.currentState = DualBird.states.Score;
     }
   },
 
@@ -71,7 +71,7 @@ FlappyBird.bird = {
   },
 
   hover: function(){
-    this.y += Math.cos(FlappyBird.frames/10);
+    this.y += Math.cos(DualBird.frames/10);
   },
 
   jump: function(){
@@ -118,7 +118,7 @@ FlappyBird.bird = {
   },
 
   glideOrFly: function() {
-    if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird){
+    if (DualBird.currentMode === DualBird.gameModes.GlideBird){
       this.glide();
     } else {
       this.fly();
@@ -126,16 +126,16 @@ FlappyBird.bird = {
   },
 
   update: function() {
-    switch (FlappyBird.currentState) {
-      case FlappyBird.states.Splash:
+    switch (DualBird.currentState) {
+      case DualBird.states.Splash:
         this.flap();
         this.hover();
         break;
-      case FlappyBird.states.Game:
+      case DualBird.states.Game:
         this.glideOrFly();
         this.flap();
         break;
-      case FlappyBird.states.Score:
+      case DualBird.states.Score:
         this.dead();
         break;
     }
@@ -148,10 +148,10 @@ FlappyBird.bird = {
 
     var animation = this.animationArray[this.animationIdx];
 
-    FlappyBird.s_bird[animation].draw(
+    DualBird.s_bird[animation].draw(
       context,
-      -FlappyBird.s_bird[animation].width/2,
-      -FlappyBird.s_bird[animation].height/2
+      -DualBird.s_bird[animation].width/2,
+      -DualBird.s_bird[animation].height/2
     );
     context.restore();
   }

@@ -2,44 +2,44 @@ describe("Pipe", function(){
 
   beforeEach(function() {
     this.loadImages();
-    FlappyBird.pipes.initialize();
+    DualBird.pipes.initialize();
   });
 
   describe("#randomOffset", function() {
     it("reduces the spacing between the pipes each time it is called in glide bird mode", function() {
-      var lastSpacing = FlappyBird.pipes.spacing;
-      FlappyBird.pipes.randomOffset();
-      expect(lastSpacing).toEqual(FlappyBird.pipes.spacing);
-      FlappyBird.currentMode = FlappyBird.gameModes.GlideBird;
-      FlappyBird.pipes.randomOffset();
-      expect(lastSpacing).toBeGreaterThan(FlappyBird.pipes.spacing);
+      var lastSpacing = DualBird.pipes.spacing;
+      DualBird.pipes.randomOffset();
+      expect(lastSpacing).toEqual(DualBird.pipes.spacing);
+      DualBird.currentMode = DualBird.gameModes.GlideBird;
+      DualBird.pipes.randomOffset();
+      expect(lastSpacing).toBeGreaterThan(DualBird.pipes.spacing);
     });
   });
 
   describe("#initialize", function() {
     it("should initialize the pipe positions", function() {
-      expect(FlappyBird.pipes.xPositions[0]).toEqual(FlappyBird.width);
-      expect(FlappyBird.pipes.xPositions[1]).toEqual(FlappyBird.width + FlappyBird.pipes.distance);
+      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.width);
+      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.width + DualBird.pipes.distance);
     });
   });
 
   describe("#generateNewXPositions", function() {
     it("should generate new x positions for the pipes based on the current speed of the game", function() {
       var lastXpositions = [];
-      FlappyBird.currentMode = FlappyBird.gameModes.FlappyBird;
+      DualBird.currentMode = DualBird.gameModes.FlappyBird;
 
-      for (var i = 0; i < FlappyBird.pipes.xPositions.length; i++){
-        lastXpositions[i] = FlappyBird.pipes.xPositions[i];
-        FlappyBird.pipes.generateNewXPositions(i);
-        expect(lastXpositions[i] - FlappyBird.FLAPPY_BIRD_SPEED).toEqual(FlappyBird.pipes.xPositions[i]);
+      for (var i = 0; i < DualBird.pipes.xPositions.length; i++){
+        lastXpositions[i] = DualBird.pipes.xPositions[i];
+        DualBird.pipes.generateNewXPositions(i);
+        expect(lastXpositions[i] - DualBird.FLAPPY_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
       }
 
-      FlappyBird.currentMode = FlappyBird.gameModes.GlideBird;
+      DualBird.currentMode = DualBird.gameModes.GlideBird;
 
-      for (i = 0; i < FlappyBird.pipes.xPositions.length; i++){
-        lastXpositions[i] = FlappyBird.pipes.xPositions[i];
-        FlappyBird.pipes.generateNewXPositions(i);
-        expect(lastXpositions[i] - FlappyBird.GLIDE_BIRD_SPEED).toEqual(FlappyBird.pipes.xPositions[i]);
+      for (i = 0; i < DualBird.pipes.xPositions.length; i++){
+        lastXpositions[i] = DualBird.pipes.xPositions[i];
+        DualBird.pipes.generateNewXPositions(i);
+        expect(lastXpositions[i] - DualBird.GLIDE_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
       }
 
 

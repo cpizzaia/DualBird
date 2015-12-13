@@ -1,4 +1,4 @@
-window.FlappyBird = window.FlappyBird || {
+window.DualBird = window.FlappyBird || {
   GLIDE_BIRD_SPEED: 5,
   FLAPPY_BIRD_SPEED: 2,
 
