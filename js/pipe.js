@@ -46,13 +46,17 @@ DualBird.pipes = {
     }
   },
 
+  generateNewYPositions: function(i) {
+    this.yBotPositions[i] = this.spacing + this.offsets[i];
+    this.yTopPositions[i] = -this.spacing + this.offsets[i];
+  },
+
   generate: function(){
     this.reset();
     if (DualBird.currentState !== DualBird.states.Score) {
       for (var i = 0; i < this.xPositions.length; i++){
         this.generateNewXPositions(i);
-        this.yBotPositions[i] = this.spacing + this.offsets[i];
-        this.yTopPositions[i] = -this.spacing + this.offsets[i];
+        this.generateNewYPositions(i);
       }
     }
   },
