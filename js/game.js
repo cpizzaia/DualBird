@@ -1,4 +1,6 @@
 window.FlappyBird = window.FlappyBird || {
+  GLIDE_BIRD_SPEED: 5,
+  FLAPPY_BIRD_SPEED: 2,
 
   s_bird: null,
   s_bg: null,
@@ -145,11 +147,11 @@ window.FlappyBird = window.FlappyBird || {
   updateFgpos: function(){
     if (this.currentMode === this.gameModes.GlideBird) {
       if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 5) % 14;
+        this.fgpos = (this.fgpos - this.GLIDE_BIRD_SPEED) % 14;
       }
     } else {
       if (this.currentState !== this.states.Score){
-        this.fgpos = (this.fgpos - 2) % 14;
+        this.fgpos = (this.fgpos - this.FLAPPY_BIRD_SPEED) % 14;
       }
     }
   },

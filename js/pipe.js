@@ -40,9 +40,9 @@ FlappyBird.pipes = {
 
   generateNewXPositions: function(i){
     if (FlappyBird.currentMode === FlappyBird.gameModes.GlideBird) {
-      this.xPositions[i] -= 5;
+      this.xPositions[i] -= FlappyBird.GLIDE_BIRD_SPEED;
     } else {
-      this.xPositions[i] -= 2;
+      this.xPositions[i] -= FlappyBird.FLAPPY_BIRD_SPEED;
     }
   },
 
