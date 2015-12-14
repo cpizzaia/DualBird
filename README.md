@@ -1,6 +1,9 @@
 [screenshot]: images/flappybird_preview.png
 
 # Dual Bird
+
+[Live](http://rawgit.com/cpizzaia/DualBird/master/index.html)
+
 A clone of the original Flappy Bird with an extra mode.
 
 ![gameplay][screenshot]
