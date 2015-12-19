@@ -1,4 +1,4 @@
-DualBird.Sprite = function(img, x, y, width, height) {
+DualBird.gameView.Sprite = function(img, x, y, width, height) {
 	this.img = img;
 	this.x = x*2;
 	this.y = y*2;
@@ -6,12 +6,12 @@ DualBird.Sprite = function(img, x, y, width, height) {
 	this.height = height*2;
 };
 
-DualBird.Sprite.prototype.draw = function(ctx, x, y) {
+DualBird.gameView.Sprite.prototype.draw = function(ctx, x, y) {
 	ctx.drawImage(this.img, this.x, this.y, this.width, this.height,
 		x, y, this.width, this.height);
 };
 
-DualBird.initSprites = function(img) {
+DualBird.gameView.initSprites = function(img) {
 
 		this.s_bird = [
 			new this.Sprite(img, 156, 115, 17, 12),

@@ -10,7 +10,7 @@ describe("Pipe", function(){
       var lastSpacing = DualBird.pipes.spacing;
       DualBird.pipes.randomOffset();
       expect(lastSpacing).toEqual(DualBird.pipes.spacing);
-      DualBird.currentMode = DualBird.gameModes.GlideBird;
+      DualBird.currentMode = DualBird.modes.GlideBird;
       DualBird.pipes.randomOffset();
       expect(lastSpacing).toBeGreaterThan(DualBird.pipes.spacing);
     });
@@ -26,7 +26,7 @@ describe("Pipe", function(){
   describe("#generateNewXPositions", function() {
     it("should generate new x positions for the pipes based on the current speed of the game", function() {
       var lastXPositions = [];
-      DualBird.currentMode = DualBird.gameModes.FlappyBird;
+      DualBird.currentMode = DualBird.modes.FlappyBird;
 
       for (var i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastXPositions[i] = DualBird.pipes.xPositions[i];
@@ -34,7 +34,7 @@ describe("Pipe", function(){
         expect(lastXPositions[i] - DualBird.FLAPPY_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
       }
 
-      DualBird.currentMode = DualBird.gameModes.GlideBird;
+      DualBird.currentMode = DualBird.modes.GlideBird;
 
       for (i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastXPositions[i] = DualBird.pipes.xPositions[i];
@@ -50,7 +50,7 @@ describe("Pipe", function(){
       lastYTopPositions = [],
       lastYBotPositions = [];
 
-      DualBird.currentMode = DualBird.gameModes.FlappyBird;
+      DualBird.currentMode = DualBird.modes.FlappyBird;
 
       for (var i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastYTopPositions[i] = DualBird.pipes.yTopPositions[i];
@@ -61,7 +61,7 @@ describe("Pipe", function(){
         expect(lastYBotPositions[i]).toEqual(DualBird.pipes.yBotPositions[i]);
       }
 
-      DualBird.currentMode = DualBird.gameModes.GlideBird;
+      DualBird.currentMode = DualBird.modes.GlideBird;
 
       for (i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastYTopPositions[i] = DualBird.pipes.yTopPositions[i];

@@ -41,7 +41,7 @@ DualBird.bird = {
   },
 
   descend: function(){
-    if (this.y < DualBird.height-DualBird.s_fg.height-DualBird.s_bird[0].height/2){
+    if (this.y < DualBird.gameView.height-DualBird.gameView.s_fg.height-DualBird.gameView.s_bird[0].height/2){
       this.y += 4;
     } else {
       DualBird.currentState = DualBird.states.Score;
@@ -118,7 +118,7 @@ DualBird.bird = {
   },
 
   glideOrFly: function() {
-    if (DualBird.currentMode === DualBird.gameModes.GlideBird){
+    if (DualBird.currentMode === DualBird.modes.GlideBird){
       this.glide();
     } else {
       this.fly();
@@ -148,10 +148,10 @@ DualBird.bird = {
 
     var animation = this.animationArray[this.animationIdx];
 
-    DualBird.s_bird[animation].draw(
+    DualBird.gameView.s_bird[animation].draw(
       context,
-      -DualBird.s_bird[animation].width/2,
-      -DualBird.s_bird[animation].height/2
+      -DualBird.gameView.s_bird[animation].width/2,
+      -DualBird.gameView.s_bird[animation].height/2
     );
     context.restore();
   }
