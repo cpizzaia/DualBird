@@ -119,6 +119,9 @@ window.DualBird = window.FlappyBird || {
     this.arrow = new Image();
     this.arrow.src = "images/arrow.png";
 
+    this.modeChoice = new Image();
+    this.modeChoice.src = "images/mode_choice.png";
+
     var img = new Image();
 
     img.onload = function() {
@@ -184,7 +187,7 @@ window.DualBird = window.FlappyBird || {
   renderPipesOrSplash: function() {
     if (this.currentState === this.states.Splash){
       this.s_text.FlappyBird.draw(this.context, this.width/2-this.s_text.FlappyBird.width/2, this.height/4-this.s_text.FlappyBird.height/2);
-      this.s_splash.draw(this.context, this.width/2-this.s_splash.width/2, this.height/2-this.s_splash.height/2);
+      // this.s_splash.draw(this.context, this.width/2-this.s_splash.width/2, this.height/2-this.s_splash.height/2);
     } else {
       this.pipes.render(this.context);
     }
@@ -216,6 +219,13 @@ window.DualBird = window.FlappyBird || {
     }
   },
 
+  drawModeChoice: function(x, y, size){
+    if (this.currentState === this.states.Splash){
+      var height = this.modeChoice.height * (size/this.modeChoice.width);
+      this.context.drawImage(this.modeChoice, x-size/2, y-height, size, height);
+    }
+  },
+
   render: function() {
     this.context.fillRect(0, 0, this.width, this.height);
 
@@ -235,7 +245,8 @@ window.DualBird = window.FlappyBird || {
     this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
     this.s_fg.draw(this.context, this.fgpos + this.s_fg.height, this.height-this.s_fg.height);
 
-    this.drawGlideBirdLogo(this.width/2, this.height/1.25, 170);
+    this.drawGlideBirdLogo(this.width/2, this.height/1.4, 200);
+    this.drawModeChoice(this.width/2, this.height/2, 300);
 
     this.drawGlideBirdCtrls();
     this.collisionCheck();
