@@ -18,8 +18,8 @@ describe("Pipe", function(){
 
   describe("#initialize", function() {
     it("should initialize the pipe positions", function() {
-      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.width);
-      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.width + DualBird.pipes.distance);
+      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.gameView.width);
+      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.gameView.width + DualBird.pipes.distance);
     });
   });
 
@@ -31,7 +31,7 @@ describe("Pipe", function(){
       for (var i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastXPositions[i] = DualBird.pipes.xPositions[i];
         DualBird.pipes.generateNewXPositions(i);
-        expect(lastXPositions[i] - DualBird.FLAPPY_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
+        expect(lastXPositions[i] - DualBird.gameView.FLAPPY_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
       }
 
       DualBird.currentMode = DualBird.modes.GlideBird;
@@ -39,7 +39,7 @@ describe("Pipe", function(){
       for (i = 0; i < DualBird.pipes.xPositions.length; i++){
         lastXPositions[i] = DualBird.pipes.xPositions[i];
         DualBird.pipes.generateNewXPositions(i);
-        expect(lastXPositions[i] - DualBird.GLIDE_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
+        expect(lastXPositions[i] - DualBird.gameView.GLIDE_BIRD_SPEED).toEqual(DualBird.pipes.xPositions[i]);
       }
     });
   });
@@ -76,11 +76,11 @@ describe("Pipe", function(){
 
   describe("#reset", function() {
     it("should reset x position of the pipe when it goes off screen", function() {
-      DualBird.pipes.xPositions[0] = -DualBird.s_pipeNorth.width-1;
-      DualBird.pipes.xPositions[1] = DualBird.s_pipeNorth.width;
+      DualBird.pipes.xPositions[0] = -DualBird.gameView.s_pipeNorth.width-1;
+      DualBird.pipes.xPositions[1] = DualBird.gameView.s_pipeNorth.width;
       DualBird.pipes.reset();
-      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.width);
-      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.s_pipeNorth.width);
+      expect(DualBird.pipes.xPositions[0]).toEqual(DualBird.gameView.width);
+      expect(DualBird.pipes.xPositions[1]).toEqual(DualBird.gameView.s_pipeNorth.width);
     });
   });
 

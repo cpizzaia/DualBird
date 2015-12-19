@@ -1,7 +1,11 @@
 DualBird.gameView = {
-  fgpos: 0,
+
   GLIDE_BIRD_SPEED: 5,
   FLAPPY_BIRD_SPEED: 2,
+
+  height: 480,
+  width: 320,
+  fgpos: 0,
 
   initialize: function(callback) {
     this.canvas = document.createElement("canvas");

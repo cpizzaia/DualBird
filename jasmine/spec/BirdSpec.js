@@ -91,7 +91,7 @@ describe("Bird", function(){
 
 
       for(i = 0; i < 1000; i++){
-        if (DualBird.bird.y < DualBird.height-DualBird.s_fg.height-DualBird.s_bird[0].height/2) {
+        if (DualBird.bird.y < DualBird.gameView.height-DualBird.gameView.s_fg.height-DualBird.gameView.s_bird[0].height/2) {
           DualBird.bird.descend();
           expect(lastPosition).toBeLessThan(DualBird.bird.y);
         } else {

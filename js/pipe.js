@@ -29,7 +29,6 @@ DualBird.pipes = {
     for (var i = 0; i < this.xPositions.length; i++) {
       this.generateNewYPositions(i);
     }
-
   },
 
   randomOffset: function(){
