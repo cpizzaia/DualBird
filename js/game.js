@@ -78,7 +78,7 @@ window.DualBird = window.DualBird || {
           this.glideOrJump(offsetY);
           break;
         case this.states.Score:
-          this.checkForGameReset(offsetY);
+          this.gameView.checkForGameReset(offsetY, this.resetGame.bind(this));
           break;
       }
     }.bind(this));
