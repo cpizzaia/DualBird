@@ -1,4 +1,4 @@
-window.DualBird = window.FlappyBird || {
+window.DualBird = window.DualBird || {
   GLIDE_BIRD_SPEED: 5,
   FLAPPY_BIRD_SPEED: 2,
 
@@ -44,20 +44,22 @@ window.DualBird = window.FlappyBird || {
     this.score = 0;
   },
 
-  checkAndSetGlideMode: function(offset) {
-    if (this.currentState === this.states.Splash && offset > this.height/2){
+  setGameModeAndStart: function(offset) {
+    if (offset > this.height/1.6) {
       this.currentMode = this.gameModes.GlideBird;
+      this.currentState = this.states.Game;
+    } else if (offset < this.height/3) {
+      this.currentMode = this.gameModes.FlappyBird;
+      this.currentState = this.states.Game;
+      this.bird.jump();
     }
   },
 
   glideOrJump: function(offset) {
-    if (this.currentState !== this.states.Score){
-      this.currentState = this.states.Game;
-      if (this.currentMode === this.gameModes.GlideBird){
-        this.bird.changeGlideAngle(offset);
-      } else {
-        this.bird.jump();
-      }
+    if (this.currentMode === this.gameModes.GlideBird){
+      this.bird.changeGlideAngle(offset);
+    } else {
+      this.bird.jump();
     }
   },
 
@@ -67,10 +69,8 @@ window.DualBird = window.FlappyBird || {
   },
 
   checkForGameReset: function(offset) {
-    if (this.currentState === this.states.Score) {
-      if (offset >= this.height/1.5 - this.s_buttons.Ok.height/2 && offset <= this.height/1.5  + this.s_buttons.Ok.height/2)
-        this.resetGame();
-    }
+    if (offset >= this.height/1.5 - this.s_buttons.Ok.height/2 && offset <= this.height/1.5  + this.s_buttons.Ok.height/2)
+      this.resetGame();
   },
 
   main: function(){
@@ -92,9 +92,18 @@ window.DualBird = window.FlappyBird || {
     document.body.appendChild(this.canvas);
 
     $("#flappy-bird").on('mousedown', function(e) {
-      this.checkAndSetGlideMode(e.offsetY);
-      this.glideOrJump(e.offsetY);
-      this.checkForGameReset(e.offsetY);
+
+      switch (this.currentState) {
+        case this.states.Splash:
+          this.setGameModeAndStart(e.offsetY);
+          break;
+        case this.states.Game:
+          this.glideOrJump(e.offsetY);
+          break;
+        case this.states.Score:
+          this.checkForGameReset(e.offsetY);
+          break;
+      }
     }.bind(this));
 
     $("#flappy-bird").on('touchstart', function(e) {
@@ -102,9 +111,17 @@ window.DualBird = window.FlappyBird || {
 
       var offsetY = this.getTouchOffset(e);
 
-      this.checkAndSetGlideMode(offsetY);
-      this.glideOrJump(offsetY);
-      this.checkForGameReset(offsetY);
+      switch (this.currentState) {
+        case this.states.Splash:
+          this.setGameModeAndStart(offsetY);
+          break;
+        case this.states.Game:
+          this.glideOrJump(offsetY);
+          break;
+        case this.states.Score:
+          this.checkForGameReset(offsetY);
+          break;
+      }
     }.bind(this));
 
     this.initImagesAndRun();
@@ -184,14 +201,12 @@ window.DualBird = window.FlappyBird || {
     return 0;
   },
 
-  renderPipesOrSplash: function() {
-    if (this.currentState === this.states.Splash){
-      this.s_text.FlappyBird.draw(this.context, this.width/2-this.s_text.FlappyBird.width/2, this.height/4-this.s_text.FlappyBird.height/2);
-      // this.s_splash.draw(this.context, this.width/2-this.s_splash.width/2, this.height/2-this.s_splash.height/2);
-    } else {
-      this.pipes.render(this.context);
-    }
+  renderSplash: function() {
+    this.s_text.FlappyBird.draw(this.context, this.width/2-this.s_text.FlappyBird.width/2, this.height/4-this.s_text.FlappyBird.height/2);
+    this.drawGlideBirdLogo(this.width/2, this.height/1.4, 200);
+    this.drawModeChoice(this.width/2, this.height/2, 300);
   },
+
 
   drawArrowAndCenter: function(x, y, size) {
     var height = this.arrow.height * (size/this.arrow.width);
@@ -213,16 +228,30 @@ window.DualBird = window.FlappyBird || {
   },
 
   drawGlideBirdLogo: function(x, y, size){
-    if (this.currentState === this.states.Splash){
       var height = this.glideBird.height * (size/this.glideBird.width);
       this.context.drawImage(this.glideBird, x-size/2, y-height, size, height);
-    }
   },
 
   drawModeChoice: function(x, y, size){
-    if (this.currentState === this.states.Splash){
       var height = this.modeChoice.height * (size/this.modeChoice.width);
       this.context.drawImage(this.modeChoice, x-size/2, y-height, size, height);
+  },
+
+  renderState: function() {
+    switch (this.currentState) {
+      case this.states.Splash:
+        this.renderSplash();
+        break;
+      case this.states.Game:
+        this.pipes.render(this.context);
+        this.collisionCheck();
+        break;
+      case this.states.Score:
+        this.pipes.render(this.context);
+        this.s_text.GameOver.draw(this.context, this.width/2-this.s_text.GameOver.width/2, this.height/2-this.s_text.GameOver.height/2);
+        this.s_buttons.Ok.draw(this.context, this.width/2-this.s_buttons.Ok.width/2, this.height/1.5-this.s_buttons.Ok.height/2);
+        this.s_numberB.draw(this.context, this.width/2.35, this.height/1.7-this.s_numberB.height/2, this.score);
+      break;
     }
   },
 
@@ -232,28 +261,13 @@ window.DualBird = window.FlappyBird || {
     this.s_bg.draw(this.context, 0, this.height-this.s_bg.height);
     this.s_bg.draw(this.context, this.s_bg.width, this.height-this.s_bg.height);
 
-    this.renderPipesOrSplash();
+    this.renderState();
 
     this.bird.draw(this.context);
-
-    if (this.currentState === this.states.Score) {
-      this.s_text.GameOver.draw(this.context, this.width/2-this.s_text.GameOver.width/2, this.height/2-this.s_text.GameOver.height/2);
-      this.s_buttons.Ok.draw(this.context, this.width/2-this.s_buttons.Ok.width/2, this.height/1.5-this.s_buttons.Ok.height/2);
-      this.s_numberB.draw(this.context, this.width/2.35, this.height/1.7-this.s_numberB.height/2, this.score);
-    }
 
     this.s_fg.draw(this.context, this.fgpos, this.height-this.s_fg.height);
     this.s_fg.draw(this.context, this.fgpos + this.s_fg.height, this.height-this.s_fg.height);
 
-    this.drawGlideBirdLogo(this.width/2, this.height/1.4, 200);
-    this.drawModeChoice(this.width/2, this.height/2, 300);
-
     this.drawGlideBirdCtrls();
-    this.collisionCheck();
-
-
-
-
-
   }
 };
