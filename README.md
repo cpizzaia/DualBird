@@ -2,7 +2,7 @@
 
 # Dual Bird
 
-[Live](http://rawgit.com/cpizzaia/DualBird/master/index.html)
+[Live](http://pizzaia.com/DualBird)
 
 A clone of the original Flappy Bird with an extra mode.
 
